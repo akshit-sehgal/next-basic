@@ -4,10 +4,9 @@ import EventList from '../../components/events/EventList';
 import EventsSearch from '../../components/events/EventSearch';
 import { getAllEvents } from '../../dummy-data';
 
-const AllEventsPage = () => {
+const AllEventsPage = (props) => {
   const { push } = useRouter();
-
-  const events = getAllEvents();
+  const {events} = props;
 
   const findEventsHandler = (year, month)=>{
     push(`/events/${year}/${month}`);
@@ -19,6 +18,18 @@ const AllEventsPage = () => {
       <EventList items={events}/>
     </Fragment>
   );
+};
+
+export const getStaticProps = async () => {
+  const events = await getAllEvents();
+
+  return {
+    props: {
+      events
+    },
+    revalidate: 60
+  };
+
 };
 
 export default AllEventsPage;
