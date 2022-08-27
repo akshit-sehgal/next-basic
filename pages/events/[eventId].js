@@ -37,7 +37,6 @@ const EventDetailsPage = (props) => {
 export const getStaticProps = async (ctx) => {
   const { eventId } = ctx.params;
   const event = await getEventById(eventId);
-  console.log('Static Props', eventId);
 
   return {
     props: {
